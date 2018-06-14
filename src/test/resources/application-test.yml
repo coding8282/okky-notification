@@ -1,0 +1,10 @@
+spring:
+  cloud:
+    config:
+      enabled: false
+  data:
+    web:
+      pageable:
+        page-parameter: pageNo
+        size-parameter: pageSize
+        one-indexed-parameters: true
