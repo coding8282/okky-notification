@@ -12,6 +12,7 @@ import static java.lang.String.format;
 import static lombok.AccessLevel.PRIVATE;
 import static org.okky.notification.domain.model.IdPrefixGenerator.replyWroteNotiId;
 import static org.okky.notification.domain.model.ReplyWroteNotiContext.*;
+import static org.okky.share.JsonUtil.toPrettyJson;
 
 @NoArgsConstructor(access = PRIVATE)
 @FieldDefaults(level = PRIVATE)
@@ -39,8 +40,19 @@ public class ReplyWroteNoti extends Notification {
         this.replierId = event.getReplierId();
         this.replierName = event.getReplierName();
         this.repliedOn = event.getRepliedOn();
-        this.replyBody = format("%1.100s",event.getBody());
+        this.replyBody = format("%1.100s", event.getBody());
         this.context = calcMyContext();
+    }
+
+    public static void main(String[] args) {
+        System.out.println(toPrettyJson(sample()));
+    }
+
+    public static ReplyWroteNoti sample() {
+        ReplyWrote event = ReplyWrote.sample();
+        Article article = Article.sample();
+        ReplyWroteNoti noti = new ReplyWroteNoti("o-1", event, article);
+        return noti;
     }
 
     /**
