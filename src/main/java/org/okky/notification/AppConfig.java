@@ -11,7 +11,7 @@ import static com.fasterxml.jackson.databind.DeserializationFeature.FAIL_ON_UNKN
 
 @Configuration
 class AppConfig {
-    @Value("${app.service-url}")
+    @Value("${app.internal-endpoint}")
     String serviceUrl;
 
     @Bean
