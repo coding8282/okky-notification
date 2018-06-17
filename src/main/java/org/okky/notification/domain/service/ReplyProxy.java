@@ -17,6 +17,7 @@ public class ReplyProxy {
     RestTemplate template;
 
     public List<String> fetchReplierIds(String articleId, int page) {
-        return template.getForEntity(format("/articles/%s/repliers?page=%d", articleId, page), List.class).getBody();
+        String url = format("/articles/%s/repliers?page=%d", articleId, page);
+        return template.getForEntity(url, List.class).getBody();
     }
 }

@@ -15,6 +15,7 @@ public class ArticleProxy {
     RestTemplate template;
 
     public Article fetchArticle(String articleId) {
-        return template.getForEntity("/articles/" + articleId, Article.class).getBody();
+        String url = "/articles/" + articleId;
+        return template.getForEntity(url, Article.class).getBody();
     }
 }
