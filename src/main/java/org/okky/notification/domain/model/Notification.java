@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import org.okky.share.JsonUtil;
 
 import static java.lang.System.currentTimeMillis;
 import static lombok.AccessLevel.PROTECTED;
@@ -12,7 +13,7 @@ import static lombok.AccessLevel.PROTECTED;
 @AllArgsConstructor
 @FieldDefaults(level = PROTECTED)
 @Getter
-public abstract class Notification {
+public class Notification {
     boolean read;
     boolean hidden;
     Long readOn;
@@ -29,6 +30,15 @@ public abstract class Notification {
         this.notifiedOn = currentTimeMillis();
         this.ownerId = ownerId;
         this.event = getClass().getSimpleName();
+    }
+
+    public static void main(String[] args) {
+        System.out.println(JsonUtil.toPrettyJson(sample()));
+    }
+
+    public static Notification sample() {
+        Notification noti = new Notification("o-1");
+        return noti;
     }
 
     public void markRead() {
