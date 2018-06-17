@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.okky.share.event.ReplyWrote;
+import org.okky.share.execption.BadArgument;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -66,11 +67,12 @@ public class ReplyWroteNoti extends Notification {
     private ReplyWroteNotiContext calcMyContext() {
         if (replierId.equals(ownerId))
             return SELF;
+        if (articleWriterId.equals(replierId))
+            return ADVISORY;
         if (!articleWriterId.equals(replierId) && articleWriterId.equals(ownerId))
             return YOURS;
         if (!articleWriterId.equals(replierId))
             return EATCH_OTHER;
-        else
-            return ADVISORY;
+        throw new BadArgument(format("현재 지원하지 않는 ReplyWroteNotiContext입니다: (%s,%s,%s)", articleWriterId, replierId, ownerId));
     }
 }
