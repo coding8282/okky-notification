@@ -1,6 +1,7 @@
 package org.okky.notification.domain.model;
 
 import lombok.Builder;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -16,6 +17,7 @@ import static org.okky.notification.domain.model.ReplyWroteNotiContext.*;
 import static org.okky.share.JsonUtil.toPrettyJson;
 
 @NoArgsConstructor(access = PRIVATE)
+@EqualsAndHashCode(of = "id", callSuper = false)
 @FieldDefaults(level = PRIVATE)
 @Getter
 @Document
@@ -32,9 +34,9 @@ public class ReplyWroteNoti extends Notification {
     ReplyWroteNotiContext context;
 
     @Builder
-    ReplyWroteNoti(String ownerId, ReplyWrote event, Article article) {
+    public ReplyWroteNoti(String ownerId, ReplyWrote event, Article article) {
         super(ownerId);
-        this.id = format("%s-%s-%d", replyWroteNotiId(), ownerId, event.getRepliedOn());
+        this.id = format("%s-%s-%d", replyWroteNotiId(), ownerId, event.getRepliedOn());  // TODO: 2018. 6. 17. 시간을 이용하는 아이디 생성 로직은 별로임.
         this.articleId = article.getId();
         this.articleWriterId = article.getWriterId();
         this.articleWriterName = article.getWriterName();
