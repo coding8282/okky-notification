@@ -72,7 +72,7 @@ public class ReplyWroteNoti extends Notification {
         if (!articleWriterId.equals(replierId) && articleWriterId.equals(ownerId))
             return YOURS;
         if (!articleWriterId.equals(replierId))
-            return EATCH_OTHER;
+            return EACH_OTHER;
         throw new BadArgument(format("현재 지원하지 않는 ReplyWroteNotiContext입니다: (%s,%s,%s)", articleWriterId, replierId, ownerId));
     }
 }

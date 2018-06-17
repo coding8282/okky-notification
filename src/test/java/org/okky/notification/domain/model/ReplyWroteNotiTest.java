@@ -44,7 +44,7 @@ public class ReplyWroteNotiTest extends TestMother {
         Article article = articleFixture();
         ReplyWroteNoti noti = new ReplyWroteNoti("m-100", event, article);
 
-        assertThat("context는 YOURS여야 함", noti.getContext(), is(EATCH_OTHER));
+        assertThat("context는 YOURS여야 함", noti.getContext(), is(EACH_OTHER));
     }
 
     @Test
