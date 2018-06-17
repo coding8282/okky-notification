@@ -9,7 +9,7 @@ import java.util.List;
 
 @RepositoryDefinition(domainClass = ReplyWroteNoti.class, idClass = String.class)
 public interface ReplyWroteNotiRepository {
-    Long countByOwnerIdAndReadIsFalse(String ownerId);
+    long countByOwnerIdAndReadIsFalse(String ownerId);
     void save(ReplyWroteNoti noti);
     void saveAll(Iterable<ReplyWroteNoti> notis);
     Page<ReplyWroteNoti> findByOwnerId(String ownerId, Pageable pageable);
