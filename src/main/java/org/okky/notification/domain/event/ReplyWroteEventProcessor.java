@@ -7,16 +7,15 @@ import lombok.extern.slf4j.Slf4j;
 import org.okky.notification.domain.model.Article;
 import org.okky.notification.domain.model.ReplyWroteNoti;
 import org.okky.notification.domain.repository.ReplyWroteNotiRepository;
+import org.okky.notification.domain.service.ArticleProxy;
+import org.okky.notification.domain.service.NotiAssembler;
+import org.okky.notification.domain.service.ReplyProxy;
 import org.okky.share.event.ReplyWrote;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
-import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
-import java.util.function.Function;
 
-import static java.lang.String.format;
-import static java.util.stream.Collectors.toList;
 import static lombok.AccessLevel.PRIVATE;
 
 @Component
@@ -25,35 +24,24 @@ import static lombok.AccessLevel.PRIVATE;
 @Slf4j
 class ReplyWroteEventProcessor {
     ReplyWroteNotiRepository repository;
-    RestTemplate template;
+    NotiAssembler assembler;
+    ArticleProxy articleProxy;
+    ReplyProxy replyProxy;
 
     @EventListener
     @SneakyThrows
     void when(ReplyWrote event) {
-        Article article = template.getForEntity("/articles/" + event.getArticleId(), Article.class).getBody();
+        String articleId = event.getArticleId();
+        Article article = articleProxy.fetchArticle(articleId);
+
         int page = 0;
-        List<String> ownerIds;
-        do {
-            String url = format("/articles/%s/repliers?page=%d", event.getArticleId(), page++);
-            ownerIds = template.getForEntity(url, List.class).getBody();
-            List<ReplyWroteNoti> notis = ownerIds
-                    .stream()
-                    .map(mapper(event, article))
-                    .filter(ReplyWroteNoti::isEligible)
-                    .collect(toList());
+        List<String> replierIds = replyProxy.fetchReplierIds(articleId, page);
+        while (replierIds.size() > 0) {
+            List<ReplyWroteNoti> notis = assembler.assemble(replierIds, event, article);
             repository.saveAll(notis);
-        } while (!ownerIds.isEmpty());
+            replierIds = replyProxy.fetchReplierIds(articleId, ++page);
+        }
 
         logger.info("Event: {}", event.getClass().getSimpleName());
-    }
-
-    // ------------------------------------------------
-    private Function<String, ReplyWroteNoti> mapper(ReplyWrote event, Article article) {
-        return ownerId -> ReplyWroteNoti
-                .builder()
-                .ownerId(ownerId)
-                .event(event)
-                .article(article)
-                .build();
     }
 }
