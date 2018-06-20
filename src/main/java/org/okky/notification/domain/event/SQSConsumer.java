@@ -22,7 +22,7 @@ class SQSConsumer {
     @SneakyThrows
     void consume(String json) {
         String message = JsonPath.read(json, "$.Message").toString();
-        String eventName = JsonPath.read(message, "$.eventName");
+        String eventName = JsonPath.read(json, "$.Message.eventName");
         Object event = fromJson(message, eventName);
         publisher.publishEvent(event);
     }
