@@ -27,8 +27,8 @@ import static org.junit.Assert.assertThat;
 import static org.springframework.test.annotation.DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD;
 
 @RunWith(SpringRunner.class)
-@DirtiesContext(classMode = AFTER_EACH_TEST_METHOD)
 @DataMongoTest
+@DirtiesContext(classMode = AFTER_EACH_TEST_METHOD)
 @FieldDefaults(level = PRIVATE)
 public class ReplyWroteNotiRepositoryTest extends TestMother {
     @Autowired
