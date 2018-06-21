@@ -1,8 +1,0 @@
-spring:
-  cloud:
-    config:
-      enabled: false
-  data:
-    web:
-      pageable:
-        one-indexed-parameters: true
