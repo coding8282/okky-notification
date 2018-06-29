@@ -17,9 +17,9 @@ import static org.mockito.Mockito.inOrder;
 
 @RunWith(MockitoJUnitRunner.class)
 @FieldDefaults(level = PRIVATE)
-public class SQSConsumerTest extends TestMother {
+public class DomainEventPumpConsumerTest extends TestMother {
     @InjectMocks
-    SQSConsumer consumer;
+    DomainEventPumpConsumer consumer;
     @Mock
     ApplicationEventPublisher publisher;
 

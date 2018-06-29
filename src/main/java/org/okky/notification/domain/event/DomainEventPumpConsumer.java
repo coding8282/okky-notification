@@ -15,7 +15,7 @@ import static org.springframework.cloud.aws.messaging.listener.SqsMessageDeletio
 @Component
 @AllArgsConstructor
 @FieldDefaults(level = PRIVATE)
-class SQSConsumer {
+class DomainEventPumpConsumer {
     ApplicationEventPublisher publisher;
 
     @SqsListener(value = "${app.queue.notification}", deletionPolicy = ON_SUCCESS)
