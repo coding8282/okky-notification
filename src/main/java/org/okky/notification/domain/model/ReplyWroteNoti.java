@@ -12,7 +12,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import static java.lang.String.format;
 import static lombok.AccessLevel.PRIVATE;
-import static org.okky.notification.domain.model.IdPrefixGenerator.replyWroteNotiId;
+import static org.okky.notification.domain.model.IdPrefixGenerator.nextReplyWroteNotiId;
 import static org.okky.notification.domain.model.ReplyWroteNotiContext.*;
 import static org.okky.share.JsonUtil.toPrettyJson;
 
@@ -36,7 +36,7 @@ public class ReplyWroteNoti extends Notification {
     @Builder
     public ReplyWroteNoti(String ownerId, ReplyWrote event, Article article) {
         super(ownerId);
-        this.id = format("%s-%s-%d", replyWroteNotiId(), ownerId, event.getRepliedOn());  // TODO: 2018. 6. 17. 시간을 이용하는 아이디 생성 로직은 별로임.
+        this.id = nextReplyWroteNotiId();
         this.articleId = article.getId();
         this.articleWriterId = article.getWriterId();
         this.articleWriterName = article.getWriterName();
