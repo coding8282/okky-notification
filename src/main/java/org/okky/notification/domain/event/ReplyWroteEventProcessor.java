@@ -3,7 +3,6 @@ package org.okky.notification.domain.event;
 import lombok.AllArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.experimental.FieldDefaults;
-import lombok.extern.slf4j.Slf4j;
 import org.okky.notification.domain.model.Article;
 import org.okky.notification.domain.model.ReplyWroteNoti;
 import org.okky.notification.domain.repository.ReplyWroteNotiRepository;
@@ -21,7 +20,6 @@ import static lombok.AccessLevel.PRIVATE;
 @Component
 @AllArgsConstructor
 @FieldDefaults(level = PRIVATE)
-@Slf4j
 class ReplyWroteEventProcessor {
     ReplyWroteNotiRepository repository;
     NotiAssembler assembler;
@@ -41,7 +39,5 @@ class ReplyWroteEventProcessor {
             repository.saveAll(notis);
             replierIds = replyProxy.fetchReplierIds(articleId, ++page);
         }
-
-        logger.info("Event: {}", event.getClass().getSimpleName());
     }
 }

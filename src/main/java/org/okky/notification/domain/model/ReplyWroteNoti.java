@@ -54,8 +54,7 @@ public class ReplyWroteNoti extends Notification {
     public static ReplyWroteNoti sample() {
         ReplyWrote event = ReplyWrote.sample();
         Article article = Article.sample();
-        ReplyWroteNoti noti = new ReplyWroteNoti("o-1", event, article);
-        return noti;
+        return new ReplyWroteNoti("o-1", event, article);
     }
 
     /**
