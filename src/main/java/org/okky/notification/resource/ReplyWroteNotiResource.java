@@ -2,7 +2,7 @@ package org.okky.notification.resource;
 
 import lombok.AllArgsConstructor;
 import lombok.experimental.FieldDefaults;
-import org.okky.notification.application.ReplyWroteNotiService;
+import org.okky.notification.application.NotificationService;
 import org.okky.notification.domain.model.ReplyWroteNoti;
 import org.okky.notification.domain.repository.ReplyWroteNotiRepository;
 import org.springframework.data.domain.Page;
@@ -21,7 +21,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @AllArgsConstructor
 @FieldDefaults(level = PRIVATE)
 class ReplyWroteNotiResource {
-    ReplyWroteNotiService service;
+    NotificationService service;
     ReplyWroteNotiRepository repository;
 
     @GetMapping(value = "/members/{memberId}/reply-wrote-notifications", produces = APPLICATION_JSON_VALUE)

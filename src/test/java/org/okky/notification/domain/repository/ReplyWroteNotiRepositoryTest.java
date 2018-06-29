@@ -146,6 +146,22 @@ public class ReplyWroteNotiRepositoryTest extends TestMother {
     }
 
     @Test
+    public void findByIdIn2() {
+        ReplyWroteNoti nt0 = fixture("m-1", false);
+        ReplyWroteNoti nt1 = fixture("m-1", false);
+        ReplyWroteNoti nt2 = fixture("m-1", false);
+        ReplyWroteNoti nt3 = fixture("m-2", false);
+        ReplyWroteNoti nt4 = fixture("m-2", false);
+        repository.saveAll(asList(nt0, nt1, nt2, nt3, nt4));
+
+        List<ReplyWroteNoti> byIdIn = repository.findByIdIn(asList(nt1.getId(), nt3.getId(), nt4.getId()));
+        System.out.println(byIdIn);
+
+        List<ReplyWroteNoti> notis = repository.findByIdIn(asList(nt1.getId(), nt3.getId(), nt4.getId()));
+        assertThat("1,2,3번 중 포함하지 않는 알림이 있음.", notis, containsInAnyOrder(nt1, nt3, nt4));
+    }
+
+    @Test
     public void deleteByIdIn() {
         ReplyWroteNoti nt0 = fixture("m-1", false);
         ReplyWroteNoti nt1 = fixture("m-1", false);

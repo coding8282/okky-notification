@@ -21,9 +21,9 @@ import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
 @FieldDefaults(level = PRIVATE)
-public class ReplyWroteNotiServiceTest extends TestMother {
+public class NotificationServiceTest extends TestMother {
     @InjectMocks
-    ReplyWroteNotiService service;
+    NotificationService service;
     @Mock
     ReplyWroteNotiRepository repository;
     List<ReplyWroteNoti> notis;
