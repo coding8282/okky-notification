@@ -1,7 +1,6 @@
 package org.okky.notification.application;
 
 import lombok.experimental.FieldDefaults;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InOrder;
@@ -9,15 +8,15 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.okky.notification.TestMother;
-import org.okky.notification.domain.model.ReplyWroteNoti;
-import org.okky.notification.domain.repository.ReplyWroteNotiRepository;
+import org.okky.notification.domain.service.ReplyPinnedNotiService;
+import org.okky.notification.domain.service.ReplyWroteNotiService;
 
-import java.util.Arrays;
 import java.util.List;
 
 import static java.util.Arrays.asList;
 import static lombok.AccessLevel.PRIVATE;
-import static org.mockito.Mockito.*;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.inOrder;
 
 @RunWith(MockitoJUnitRunner.class)
 @FieldDefaults(level = PRIVATE)
@@ -25,71 +24,47 @@ public class NotificationServiceTest extends TestMother {
     @InjectMocks
     NotificationService service;
     @Mock
-    ReplyWroteNotiRepository repository;
-    List<ReplyWroteNoti> notis;
-
-    @Before
-    public void setUp() {
-        notis = Arrays.asList(
-                mock(ReplyWroteNoti.class),
-                mock(ReplyWroteNoti.class),
-                mock(ReplyWroteNoti.class)
-        );
-    }
+    ReplyWroteNotiService replyWroteNotiService;
+    @Mock
+    ReplyPinnedNotiService replyPinnedNotiService;
 
     @Test
     public void markRead() {
         List<String> ids = asList("n-1", "n-2", "n-3");
-        when(repository.findByIdIn(ids)).thenReturn(notis);
-
         service.markRead(ids);
 
-        InOrder o = inOrder(repository, notis.get(0), notis.get(1), notis.get(2));
-        o.verify(repository).findByIdIn(ids);
-        o.verify(notis.get(0)).markRead();
-        o.verify(notis.get(1)).markRead();
-        o.verify(notis.get(2)).markRead();
+        InOrder o = inOrder(replyWroteNotiService, replyPinnedNotiService);
+        o.verify(replyWroteNotiService).markRead(ids);
+        o.verify(replyPinnedNotiService).markRead(ids);
     }
 
     @Test
     public void markUnread() {
         List<String> ids = asList("n-1", "n-2", "n-3");
-        when(repository.findByIdIn(ids)).thenReturn(notis);
-
         service.markUnread(ids);
 
-        InOrder o = inOrder(repository, notis.get(0), notis.get(1), notis.get(2));
-        o.verify(repository).findByIdIn(ids);
-        o.verify(notis.get(0)).markUnread();
-        o.verify(notis.get(1)).markUnread();
-        o.verify(notis.get(2)).markUnread();
+        InOrder o = inOrder(replyWroteNotiService, replyPinnedNotiService);
+        o.verify(replyWroteNotiService).markUnread(ids);
+        o.verify(replyPinnedNotiService).markUnread(ids);
     }
 
     @Test
     public void markReadAll() {
-        when(repository.findByOwnerId("m-1")).thenReturn(notis);
+        service.markReadAll("o");
 
-        service.markReadAll("m-1");
-
-        InOrder o = inOrder(repository, notis.get(0), notis.get(1), notis.get(2));
-        o.verify(repository).findByOwnerId("m-1");
-        o.verify(notis.get(0)).markRead();
-        o.verify(notis.get(1)).markRead();
-        o.verify(notis.get(2)).markRead();
+        InOrder o = inOrder(replyWroteNotiService, replyPinnedNotiService);
+        o.verify(replyWroteNotiService).markReadAll("o");
+        o.verify(replyPinnedNotiService).markReadAll(eq("o"));
     }
 
     @Test
     public void toggleRead() {
         List<String> ids = asList("n-1", "n-2", "n-3");
-        when(repository.findByIdIn(ids)).thenReturn(notis);
-
         service.toggleRead(ids);
 
-        InOrder o = inOrder(repository, notis.get(0), notis.get(1), notis.get(2));
-        o.verify(repository).findByIdIn(ids);
-        o.verify(notis.get(0)).toggleRead();
-        o.verify(notis.get(1)).toggleRead();
-        o.verify(notis.get(2)).toggleRead();
+        InOrder o = inOrder(replyWroteNotiService, replyPinnedNotiService);
+        o.verify(replyWroteNotiService).toggleRead(ids);
+        o.verify(replyPinnedNotiService).toggleRead(ids);
     }
 
     @Test
@@ -97,7 +72,8 @@ public class NotificationServiceTest extends TestMother {
         List<String> ids = asList("n-1", "n-2", "n-3");
         service.remove(ids);
 
-        InOrder o = inOrder(repository);
-        o.verify(repository).deleteByIdIn(ids);
+        InOrder o = inOrder(replyWroteNotiService, replyPinnedNotiService);
+        o.verify(replyWroteNotiService).remove(ids);
+        o.verify(replyPinnedNotiService).remove(ids);
     }
 }
