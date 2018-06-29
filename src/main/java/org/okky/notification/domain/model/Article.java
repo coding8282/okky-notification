@@ -26,7 +26,6 @@ public class Article implements ValueObject {
         String id = "a-1";
         String writerId = "m-3";
         String writerName = "coding8282";
-        Article article = new Article(id, writerId, writerName);
-        return article;
+        return new Article(id, writerId, writerName);
     }
 }

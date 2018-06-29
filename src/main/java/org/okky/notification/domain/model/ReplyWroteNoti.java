@@ -11,7 +11,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import static java.lang.String.format;
 import static lombok.AccessLevel.PRIVATE;
-import static org.okky.notification.domain.model.IdPrefixGenerator.nextReplyWroteNotiId;
+import static org.okky.notification.domain.model.IdGenerator.nextReplyWroteNotiId;
 import static org.okky.notification.domain.model.ReplyWroteNotiContext.*;
 import static org.okky.share.JsonUtil.toPrettyJson;
 

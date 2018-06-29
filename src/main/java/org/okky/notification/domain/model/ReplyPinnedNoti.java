@@ -8,7 +8,7 @@ import org.okky.share.event.ReplyPinned;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import static lombok.AccessLevel.PRIVATE;
-import static org.okky.notification.domain.model.IdPrefixGenerator.nextReplyPinnedNotiId;
+import static org.okky.notification.domain.model.IdGenerator.nextReplyPinnedNotiId;
 import static org.okky.share.util.JsonUtil.toPrettyJson;
 
 @NoArgsConstructor(access = PRIVATE)

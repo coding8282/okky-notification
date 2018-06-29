@@ -2,9 +2,9 @@ package org.okky.notification.domain.model;
 
 import java.util.UUID;
 
-interface IdPrefixGenerator {
+interface IdGenerator {
     static String nextReplyWroteNotiId() {
-        return "nr" + uuid();
+        return "nr-" + uuid();
     }
 
     static String nextReplyPinnedNotiId() {
