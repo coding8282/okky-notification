@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.okky.share.event.ReplyWrote;
 import org.okky.share.execption.BadArgument;
-import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import static java.lang.String.format;
@@ -22,8 +21,6 @@ import static org.okky.share.JsonUtil.toPrettyJson;
 @Getter
 @Document
 public class ReplyWroteNoti extends Notification {
-    @Id
-    String id;
     String articleId;
     String articleWriterId;
     String articleWriterName;

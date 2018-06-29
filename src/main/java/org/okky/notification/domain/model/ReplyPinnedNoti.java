@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.okky.share.event.ReplyPinned;
-import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import static lombok.AccessLevel.PRIVATE;
@@ -18,8 +17,6 @@ import static org.okky.share.util.JsonUtil.toPrettyJson;
 @Getter
 @Document
 public class ReplyPinnedNoti extends Notification {
-    @Id
-    String id;
     String articleId;
     String articleWriterId;
     String articleWriterName;

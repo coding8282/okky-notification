@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.okky.share.JsonUtil;
+import org.springframework.data.annotation.Id;
 
 import static java.lang.System.currentTimeMillis;
 import static lombok.AccessLevel.PROTECTED;
@@ -14,6 +15,8 @@ import static lombok.AccessLevel.PROTECTED;
 @FieldDefaults(level = PROTECTED)
 @Getter
 public class Notification {
+    @Id
+    String id;
     boolean read;
     boolean hidden;
     Long readOn;
