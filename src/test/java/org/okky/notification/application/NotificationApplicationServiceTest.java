@@ -20,9 +20,9 @@ import static org.mockito.Mockito.inOrder;
 
 @RunWith(MockitoJUnitRunner.class)
 @FieldDefaults(level = PRIVATE)
-public class NotificationServiceTest extends TestMother {
+public class NotificationApplicationServiceTest extends TestMother {
     @InjectMocks
-    NotificationService service;
+    NotificationApplicationService service;
     @Mock
     ReplyWroteNotiService replyWroteNotiService;
     @Mock

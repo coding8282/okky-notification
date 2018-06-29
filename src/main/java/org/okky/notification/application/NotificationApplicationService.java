@@ -13,7 +13,7 @@ import static lombok.AccessLevel.PRIVATE;
 @Service
 @AllArgsConstructor
 @FieldDefaults(level = PRIVATE)
-public class NotificationService {
+public class NotificationApplicationService {
     ReplyWroteNotiService replyWroteNotiService;
     ReplyPinnedNotiService replyPinnedNotiService;
 
