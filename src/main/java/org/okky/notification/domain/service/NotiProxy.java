@@ -3,6 +3,7 @@ package org.okky.notification.domain.service;
 import lombok.AllArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.okky.notification.domain.model.Article;
+import org.okky.notification.domain.model.Member;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -16,6 +17,11 @@ import static lombok.AccessLevel.PRIVATE;
 @FieldDefaults(level = PRIVATE)
 public class NotiProxy {
     RestTemplate template;
+
+    public Member fetchMember(String memberId) {
+        String url = "/members/" + memberId;
+        return template.getForEntity(url, Member.class).getBody();
+    }
 
     public Article fetchArticle(String articleId) {
         String url = "/articles/" + articleId;

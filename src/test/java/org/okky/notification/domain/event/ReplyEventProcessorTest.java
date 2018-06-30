@@ -34,8 +34,6 @@ public class ReplyEventProcessorTest extends TestMother {
     NotiAssembler assembler;
     @Mock
     NotiProxy proxy;
-    @Mock
-    NotiProxy notiProxy;
 
     @Test
     public void ReplyWrote() {
@@ -47,9 +45,9 @@ public class ReplyEventProcessorTest extends TestMother {
 
         processor.when(event);
 
-        InOrder o = inOrder(proxy, notiProxy, assembler, repository);
+        InOrder o = inOrder(proxy, proxy, assembler, repository);
         o.verify(proxy).fetchArticle("a-1");
-        o.verify(notiProxy).fetchReplierIds("a-1");
+        o.verify(proxy).fetchReplierIds("a-1");
         o.verify(assembler).assemble(any(), eq(event), eq(article));
         o.verify(repository).saveAll(isA(List.class));
     }
