@@ -45,6 +45,7 @@ class ReplyEventProcessor {
     void when(ReplyPinned event) {
         Article article = articleProxy.fetchArticle(event.getArticleId());
         ReplyPinnedNoti noti = new ReplyPinnedNoti(event, article);
-        repository.save(noti);
+        if (noti.didFixedOthers())
+            repository.save(noti);
     }
 }

@@ -24,8 +24,7 @@ public class ReplyPinnedNoti extends Notification {
     long pinnedOn;
 
     public ReplyPinnedNoti(ReplyPinned event, Article article) {
-        super(event.getReplierId());
-        this.id = nextReplyPinnedNotiId();
+        super(nextReplyPinnedNotiId(), event.getReplierId());
         this.articleId = article.getId();
         this.articleWriterId = article.getWriterId();
         this.articleWriterName = article.getWriterName();
@@ -44,5 +43,21 @@ public class ReplyPinnedNoti extends Notification {
         ReplyPinned event = ReplyPinned.sample();
         Article article = Article.sample();
         return new ReplyPinnedNoti(event, article);
+    }
+
+    /**
+     * 게시글 작성자가 자신의 답글을 고정했는지 여부
+     *
+     * @return 게시글 작성자 === 답글 작성자
+     */
+    public boolean didFixedYourself() {
+        return articleWriterId.equals(replierId);
+    }
+
+    /**
+     * 게시글 작성자가 다른 사람의 답글을 고정했는지 여부
+     */
+    public boolean didFixedOthers() {
+        return !didFixedYourself();
     }
 }

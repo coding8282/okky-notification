@@ -64,7 +64,6 @@ public class NotificationTest extends TestMother {
 
     // ---------------------------------------------
     private Notification fixture() {
-        Notification noti = new Notification("o-1");
-        return noti;
+        return new Notification("n", "o-1");
     }
 }

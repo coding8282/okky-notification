@@ -26,21 +26,22 @@ import static lombok.AccessLevel.PROTECTED;
 public class Notification implements Comparable<Notification> {
     @Id
     String id;
+    String ownerId;
     boolean read;
     boolean hidden;
     Long readOn;
     Long hiddenOn;
     long notifiedOn;
-    String ownerId;
     String event;
 
-    protected Notification(String ownerId) {
+    protected Notification(String id, String ownerId) {
+        this.id = id;
+        this.ownerId = ownerId;
         this.read = false;
         this.hidden = false;
         this.readOn = null;
         this.hiddenOn = null;
         this.notifiedOn = currentTimeMillis();
-        this.ownerId = ownerId;
         this.event = getClass().getSimpleName();
     }
 
@@ -49,7 +50,7 @@ public class Notification implements Comparable<Notification> {
     }
 
     public static Notification sample() {
-        return new Notification("o-1");
+        return new Notification("n", "o-1");
     }
 
     public void markRead() {

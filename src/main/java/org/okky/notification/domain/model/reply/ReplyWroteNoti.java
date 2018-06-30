@@ -5,13 +5,13 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.okky.notification.domain.model.Article;
+import org.okky.notification.domain.model.IdGenerator;
 import org.okky.notification.domain.model.Notification;
 import org.okky.share.event.ReplyWrote;
 import org.okky.share.execption.BadArgument;
 
 import static java.lang.String.format;
 import static lombok.AccessLevel.PRIVATE;
-import static org.okky.notification.domain.model.IdGenerator.nextReplyWroteNotiId;
 import static org.okky.notification.domain.model.reply.ReplyWroteNotiContext.*;
 import static org.okky.share.JsonUtil.toPrettyJson;
 
@@ -30,8 +30,7 @@ public class ReplyWroteNoti extends Notification {
 
     @Builder
     public ReplyWroteNoti(String ownerId, ReplyWrote event, Article article) {
-        super(ownerId);
-        this.id = nextReplyWroteNotiId();
+        super(IdGenerator.nextReplyWroteNotiId(), ownerId);
         this.articleId = article.getId();
         this.articleWriterId = article.getWriterId();
         this.articleWriterName = article.getWriterName();
