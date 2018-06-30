@@ -15,14 +15,14 @@ import static org.springframework.cloud.aws.messaging.listener.SqsMessageDeletio
 @Component
 @AllArgsConstructor
 @FieldDefaults(level = PRIVATE)
-class DomainEventPumpConsumer {
+class DomainEventPump {
     ApplicationEventPublisher publisher;
 
     @SqsListener(value = "${app.queue.notification}", deletionPolicy = ON_SUCCESS)
     @SneakyThrows
     void consume(String json) {
         String message = JsonPath.read(json, "$.Message").toString();
-        String eventName = JsonPath.read(json, "$.Message.eventName");
+        String eventName = JsonPath.read(message, "$.eventName");
         Object event = fromJson(message, eventName);
         publisher.publishEvent(event);
     }

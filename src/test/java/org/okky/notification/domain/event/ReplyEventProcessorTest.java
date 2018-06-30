@@ -8,7 +8,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.okky.notification.TestMother;
-import org.okky.notification.domain.repository.ReplyWroteNotiRepository;
+import org.okky.notification.domain.repository.NotiRepository;
 import org.okky.notification.domain.service.ArticleProxy;
 import org.okky.notification.domain.service.NotiAssembler;
 import org.okky.notification.domain.service.ReplyProxy;
@@ -23,11 +23,11 @@ import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
 @FieldDefaults(level = PRIVATE)
-public class ReplyWroteEventProcessorTest extends TestMother {
+public class ReplyEventProcessorTest extends TestMother {
     @InjectMocks
-    ReplyWroteEventProcessor processor;
+    ReplyEventProcessor processor;
     @Mock
-    ReplyWroteNotiRepository repository;
+    NotiRepository repository;
     @Mock
     NotiAssembler assembler;
     @Mock

@@ -17,9 +17,9 @@ import static org.mockito.Mockito.inOrder;
 
 @RunWith(MockitoJUnitRunner.class)
 @FieldDefaults(level = PRIVATE)
-public class DomainEventPumpConsumerTest extends TestMother {
+public class DomainEventPumpTest extends TestMother {
     @InjectMocks
-    DomainEventPumpConsumer consumer;
+    DomainEventPump consumer;
     @Mock
     ApplicationEventPublisher publisher;
 

@@ -10,10 +10,9 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.okky.notification.TestMother;
 import org.okky.notification.domain.model.Notification;
-import org.okky.notification.domain.model.ReplyPinnedNoti;
-import org.okky.notification.domain.model.ReplyWroteNoti;
-import org.okky.notification.domain.repository.ReplyPinnedNotiRepository;
-import org.okky.notification.domain.repository.ReplyWroteNotiRepository;
+import org.okky.notification.domain.model.reply.ReplyPinnedNoti;
+import org.okky.notification.domain.model.reply.ReplyWroteNoti;
+import org.okky.notification.domain.repository.NotiRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -36,9 +35,7 @@ public class NotificationQueryServiceTest extends TestMother {
     @InjectMocks
     NotificationQueryService service;
     @Mock
-    ReplyWroteNotiRepository replyWroteNotiRepository;
-    @Mock
-    ReplyPinnedNotiRepository replyPinnedNotiRepository;
+    NotiRepository repository;
     List<ReplyWroteNoti> replyWroteNotis;
     List<ReplyPinnedNoti> replyPinnedNotis;
 
@@ -58,8 +55,8 @@ public class NotificationQueryServiceTest extends TestMother {
     public void findByOwnerId_내림차순으로_정렬되어_있어야_함() {
         Page replyWroteNotiPage = mock(Page.class);
         Page replyPinnedNotiPage = mock(Page.class);
-        when(replyWroteNotiRepository.findByOwnerId(eq("o"), any(Pageable.class))).thenReturn(replyWroteNotiPage);
-        when(replyPinnedNotiRepository.findByOwnerId(eq("o"), any(Pageable.class))).thenReturn(replyPinnedNotiPage);
+        when(repository.findByOwnerId(eq("o"), any(Pageable.class))).thenReturn(replyWroteNotiPage);
+        when(repository.findByOwnerId(eq("o"), any(Pageable.class))).thenReturn(replyPinnedNotiPage);
         when(replyWroteNotiPage.getContent()).thenReturn(replyWroteNotis);
         when(replyPinnedNotiPage.getContent()).thenReturn(replyPinnedNotis);
 

@@ -1,8 +1,10 @@
-package org.okky.notification.domain.model;
+package org.okky.notification.domain.model.reply;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import org.okky.notification.domain.model.Article;
+import org.okky.notification.domain.model.Notification;
 import org.okky.share.event.ReplyPinned;
 import org.springframework.data.mongodb.core.mapping.Document;
 

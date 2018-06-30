@@ -2,8 +2,8 @@ package org.okky.notification.application;
 
 import lombok.AllArgsConstructor;
 import lombok.experimental.FieldDefaults;
-import org.okky.notification.domain.service.ReplyPinnedNotiService;
-import org.okky.notification.domain.service.ReplyWroteNotiService;
+import org.okky.notification.domain.model.Notification;
+import org.okky.notification.domain.repository.NotiRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,31 +14,33 @@ import static lombok.AccessLevel.PRIVATE;
 @AllArgsConstructor
 @FieldDefaults(level = PRIVATE)
 public class NotificationApplicationService {
-    ReplyWroteNotiService replyWroteNotiService;
-    ReplyPinnedNotiService replyPinnedNotiService;
+    NotiRepository repository;
 
     public void markRead(List<String> notificationIds) {
-        replyWroteNotiService.markRead(notificationIds);
-        replyPinnedNotiService.markRead(notificationIds);
+        List<Notification> notis = repository.findByIdIn(notificationIds);
+        notis.forEach(Notification::markRead);
+        repository.saveAll(notis);
     }
 
     public void markUnread(List<String> notificationIds) {
-        replyWroteNotiService.markUnread(notificationIds);
-        replyPinnedNotiService.markUnread(notificationIds);
+        List<Notification> notis = repository.findByIdIn(notificationIds);
+        notis.forEach(Notification::markUnread);
+        repository.saveAll(notis);
     }
 
     public void markReadAll(String ownerId) {
-        replyWroteNotiService.markReadAll(ownerId);
-        replyPinnedNotiService.markReadAll(ownerId);
+        List<Notification> replyPinnedNotis = repository.findByOwnerId(ownerId);
+        replyPinnedNotis.forEach(Notification::markRead);
+        repository.saveAll(replyPinnedNotis);
     }
 
     public void toggleRead(List<String> notificationIds) {
-        replyWroteNotiService.toggleRead(notificationIds);
-        replyPinnedNotiService.toggleRead(notificationIds);
+        List<Notification> notis = repository.findByIdIn(notificationIds);
+        notis.forEach(Notification::toggleRead);
+        repository.saveAll(notis);
     }
 
     public void remove(List<String> notificationIds) {
-        replyWroteNotiService.remove(notificationIds);
-        replyPinnedNotiService.remove(notificationIds);
+        repository.deleteByIdIn(notificationIds);
     }
 }

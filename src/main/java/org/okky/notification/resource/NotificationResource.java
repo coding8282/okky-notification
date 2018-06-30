@@ -3,8 +3,8 @@ package org.okky.notification.resource;
 import lombok.AllArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.okky.notification.application.NotificationApplicationService;
-import org.okky.notification.domain.model.ReplyWroteNoti;
-import org.okky.notification.domain.repository.ReplyWroteNotiRepository;
+import org.okky.notification.domain.model.Notification;
+import org.okky.notification.domain.repository.NotiRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -22,13 +22,13 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @FieldDefaults(level = PRIVATE)
 class NotificationResource {
     NotificationApplicationService service;
-    ReplyWroteNotiRepository repository;
+    NotiRepository repository;
 
     @GetMapping(value = "/members/{memberId}/reply-wrote-notifications", produces = APPLICATION_JSON_VALUE)
     PagingEnvelop findByOwnerId(
             @PathVariable(name = "memberId") String ownerId,
             @PageableDefault(size = 20, sort = "notifiedOn", direction = DESC) Pageable pageable) {
-        Page<ReplyWroteNoti> page = repository.findByOwnerId(ownerId, pageable);
+        Page<Notification> page = repository.findByOwnerId(ownerId, pageable);
         return new PagingEnvelop(page);
     }
 
