@@ -8,7 +8,6 @@ import org.okky.notification.domain.model.Article;
 import org.okky.notification.domain.model.Notification;
 import org.okky.share.event.ReplyWrote;
 import org.okky.share.execption.BadArgument;
-import org.springframework.data.mongodb.core.mapping.Document;
 
 import static java.lang.String.format;
 import static lombok.AccessLevel.PRIVATE;
@@ -19,7 +18,6 @@ import static org.okky.share.JsonUtil.toPrettyJson;
 @NoArgsConstructor(access = PRIVATE)
 @FieldDefaults(level = PRIVATE)
 @Getter
-@Document
 public class ReplyWroteNoti extends Notification {
     String articleId;
     String articleWriterId;

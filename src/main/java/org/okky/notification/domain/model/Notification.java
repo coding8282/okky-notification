@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.okky.share.JsonUtil;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import static java.lang.System.currentTimeMillis;
 import static lombok.AccessLevel.PROTECTED;
@@ -21,6 +22,7 @@ import static lombok.AccessLevel.PROTECTED;
 @EqualsAndHashCode(of = "id")
 @FieldDefaults(level = PROTECTED)
 @Getter
+@Document
 public class Notification implements Comparable<Notification> {
     @Id
     String id;
@@ -47,8 +49,7 @@ public class Notification implements Comparable<Notification> {
     }
 
     public static Notification sample() {
-        Notification noti = new Notification("o-1");
-        return noti;
+        return new Notification("o-1");
     }
 
     public void markRead() {

@@ -6,7 +6,6 @@ import lombok.experimental.FieldDefaults;
 import org.okky.notification.domain.model.Article;
 import org.okky.notification.domain.model.Notification;
 import org.okky.share.event.ReplyPinned;
-import org.springframework.data.mongodb.core.mapping.Document;
 
 import static lombok.AccessLevel.PRIVATE;
 import static org.okky.notification.domain.model.IdGenerator.nextReplyPinnedNotiId;
@@ -15,7 +14,6 @@ import static org.okky.share.util.JsonUtil.toPrettyJson;
 @NoArgsConstructor(access = PRIVATE)
 @FieldDefaults(level = PRIVATE)
 @Getter
-@Document
 public class ReplyPinnedNoti extends Notification {
     String articleId;
     String articleWriterId;
