@@ -6,8 +6,7 @@ import org.okky.notification.TestMother;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.startsWith;
 import static org.junit.Assert.assertThat;
-import static org.okky.notification.domain.model.IdGenerator.nextReplyPinnedNotiId;
-import static org.okky.notification.domain.model.IdGenerator.nextReplyWroteNotiId;
+import static org.okky.notification.domain.model.IdGenerator.*;
 
 public class IdGeneratorTest extends TestMother {
     @Test
@@ -28,5 +27,15 @@ public class IdGeneratorTest extends TestMother {
     @Test
     public void nextReplyPinnedNotiId_18자여야_함() {
         assertThat("ReplyPinnedNoti 아이디는 18자여야 한다.", nextReplyPinnedNotiId().length(), is(18));
+    }
+
+    @Test
+    public void nextEmotedNotiId_ne로_시작해야_함() {
+        assertThat("EmotedNoti 아이디는 ne-로 시작해야 한다.", nextEmotedNotiId(), startsWith("ne-"));
+    }
+
+    @Test
+    public void nextEmotedNotiId_18자여야_함() {
+        assertThat("EmotedNoti 아이디는 18자여야 한다.", nextEmotedNotiId().length(), is(18));
     }
 }

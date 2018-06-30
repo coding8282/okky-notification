@@ -11,6 +11,10 @@ public interface IdGenerator {
         return "np-" + uuid();
     }
 
+    static String nextEmotedNotiId() {
+        return "ne-" + uuid();
+    }
+
     static String uuid() {
         return UUID.randomUUID().toString().replaceAll("-", "").substring(0, 15);
     }
