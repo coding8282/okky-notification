@@ -45,7 +45,7 @@ public class ReplyEventProcessorTest extends TestMother {
 
         processor.when(event);
 
-        InOrder o = inOrder(proxy, proxy, assembler, repository);
+        InOrder o = inOrder(proxy, assembler, repository);
         o.verify(proxy).fetchArticle("a-1");
         o.verify(proxy).fetchReplierIds("a-1");
         o.verify(assembler).assemble(any(), eq(event), eq(article));
