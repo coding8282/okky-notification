@@ -9,6 +9,8 @@ import static java.lang.System.currentTimeMillis;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.lessThanOrEqualTo;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static org.okky.notification.domain.model.reply.ReplyWroteNotiContext.*;
 
 public class ReplyWroteNotiTest extends TestMother {
@@ -22,7 +24,7 @@ public class ReplyWroteNotiTest extends TestMother {
     }
 
     @Test
-    public void self_context_확인() {
+    public void SELF_context_확인() {
         ReplyWrote event = eventFixture();
         Article article = articleFixture();
         ReplyWroteNoti noti = new ReplyWroteNoti("m-1", event, article);
@@ -55,6 +57,24 @@ public class ReplyWroteNotiTest extends TestMother {
         ReplyWroteNoti noti = new ReplyWroteNoti("m-3", event, article);
 
         assertThat("context는 ADVISORY여야 함", noti.getContext(), is(ADVISORY));
+    }
+
+    @Test
+    public void didNotRepliedMyself_context가_SELF인_경우_true() {
+        ReplyWrote event = eventFixture();
+        Article article = articleFixture();
+        ReplyWroteNoti noti = new ReplyWroteNoti("m-1", event, article);
+
+        assertTrue("context는 SELF이므로 true여야 한다.", noti.didRepliedMyself());
+    }
+
+    @Test
+    public void didNotRepliedMyself_context가_SELF가_아닌_경우_false() {
+        ReplyWrote event = eventFixture();
+        Article article = articleFixture();
+        ReplyWroteNoti noti = new ReplyWroteNoti("m-9", event, article);
+
+        assertFalse("context는 SELF이므로 false여야 한다.", noti.didRepliedMyself());
     }
 
     // ------------------------------------

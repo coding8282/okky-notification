@@ -1,6 +1,5 @@
 package org.okky.notification.domain.model.reply;
 
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -28,7 +27,6 @@ public class ReplyWroteNoti extends Notification {
     String replyBody;
     ReplyWroteNotiContext context;
 
-    @Builder
     public ReplyWroteNoti(String ownerId, ReplyWrote event, Article article) {
         super(IdGenerator.nextReplyWroteNotiId(), ownerId);
         this.articleId = article.getId();
@@ -52,10 +50,11 @@ public class ReplyWroteNoti extends Notification {
     }
 
     /**
-     * 알림을 제공하기에 적절한지 여부. 예를 들어, 자기가 쓴 게시글에 자기가 답변을 단 경우 굳이 알림을 줄 필요 없다.
+     * 알림을 제공하기에 적절한지 확인 판단에 쓰인다.
+     * 예를 들어, 자기가 쓴 게시글에 자기가 답변을 단 경우 굳이 알림을 줄 필요 없다.
      */
-    public boolean isEligible() {
-        return context != SELF;
+    public boolean didRepliedMyself() {
+        return context == SELF;
     }
 
     // ----------------------------------------
