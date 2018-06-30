@@ -1,6 +1,5 @@
 package org.okky.notification.domain.service;
 
-import lombok.experimental.FieldDefaults;
 import org.okky.notification.domain.model.Article;
 import org.okky.notification.domain.model.Notification;
 import org.okky.notification.domain.model.reply.ReplyWroteNoti;
@@ -8,23 +7,17 @@ import org.okky.share.event.ReplyWrote;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 
 import static java.util.stream.Collectors.toList;
-import static lombok.AccessLevel.PRIVATE;
 
 @Service
-@FieldDefaults(level = PRIVATE)
 public class NotiAssembler {
-    public List<Notification> assemble(List<String> ownerIds, ReplyWrote event, Article article) {
+    public List<Notification> assemble(Set<String> ownerIds, ReplyWrote event, Article article) {
         return ownerIds
                 .stream()
-                .map(ownerId -> ReplyWroteNoti
-                        .builder()
-                        .ownerId(ownerId)
-                        .event(event)
-                        .article(article)
-                        .build())
-                .filter(ReplyWroteNoti::isEligible)
+                .map(ownerId -> new ReplyWroteNoti(ownerId, event, article))
+                .filter(noti -> !noti.didRepliedMyself())
                 .collect(toList());
     }
 }
