@@ -8,14 +8,17 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.okky.notification.TestMother;
+import org.okky.notification.domain.model.Article;
+import org.okky.notification.domain.model.reply.ReplyPinnedNoti;
 import org.okky.notification.domain.repository.NotiRepository;
 import org.okky.notification.domain.service.ArticleProxy;
 import org.okky.notification.domain.service.NotiAssembler;
 import org.okky.notification.domain.service.ReplyProxy;
+import org.okky.share.event.ReplyPinned;
 import org.okky.share.event.ReplyWrote;
 
-import static java.util.Arrays.asList;
-import static java.util.Collections.emptyList;
+import java.util.List;
+
 import static lombok.AccessLevel.PRIVATE;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
@@ -34,38 +37,51 @@ public class ReplyEventProcessorTest extends TestMother {
     ArticleProxy articleProxy;
     @Mock
     ReplyProxy replyProxy;
-    @Mock
-    ReplyWrote event;
 
     @Test
-    public void when_게시글_답변자가_없는_경우() {
+    public void ReplyWrote() {
+        ReplyWrote event = mock(ReplyWrote.class);
+        Article article = mock(Article.class);
         when(event.getArticleId()).thenReturn("a-1");
-        when(replyProxy.fetchReplierIds(eq("a-1"), eq(0))).thenReturn(emptyList());
+        when(article.getWriterId()).thenReturn("w-1");
+        when(articleProxy.fetchArticle(eq("a-1"))).thenReturn(article);
 
         processor.when(event);
 
         InOrder o = inOrder(articleProxy, replyProxy, assembler, repository);
-        o.verify(articleProxy).fetchArticle(eq("a-1"));
-        o.verify(replyProxy).fetchReplierIds(eq("a-1"), eq(0));
-        o.verify(assembler, never()).assemble(any(), any(), any());
-        o.verify(repository, never()).saveAll(any());
-        o.verify(replyProxy, never()).fetchReplierIds(any(), anyInt());
+        o.verify(articleProxy).fetchArticle("a-1");
+        o.verify(replyProxy).fetchReplierIds("a-1");
+        o.verify(assembler).assemble(any(), eq(event), eq(article));
+        o.verify(repository).saveAll(isA(List.class));
     }
 
     @Test
-    public void when_게시글_답변자가_있는_경우() {
-        when(event.getArticleId()).thenReturn("a-1");
-        when(replyProxy.fetchReplierIds(eq("a-1"), eq(0))).thenReturn(asList("r-1", "r-2", "r-3"));
-        when(replyProxy.fetchReplierIds(eq("a-1"), eq(1))).thenReturn(asList("r-1", "r-2", "r-3"));
-        when(replyProxy.fetchReplierIds(eq("a-1"), eq(2))).thenReturn(emptyList());
+    public void ReplyPinned_게시글_작성자_본인이_답글을_고정한_경우() {
+        ReplyPinned event = spy(ReplyPinned.sample());
+        Article article = spy(Article.sample());
+        when(event.getReplierId()).thenReturn("m");
+        when(article.getWriterId()).thenReturn("m");
+        when(articleProxy.fetchArticle(eq(event.getArticleId()))).thenReturn(article);
 
         processor.when(event);
 
-        InOrder o = inOrder(articleProxy, replyProxy, assembler, repository);
-        o.verify(articleProxy).fetchArticle(eq("a-1"));
-        o.verify(replyProxy, times(3)).fetchReplierIds(eq("a-1"), anyInt());
-        // TODO: 2018. 6. 17. 왜 안 되는지 모르겠다.... 너무 지치고 힘들어 ㅜㅜ junit만 하루에 15시간째네...
-        // o.verify(assembler, times(2)).assemble(any(), any(), any());
-        // o.verify(repository, atLeastOnce()).saveAll(any());
+        InOrder o = inOrder(articleProxy, repository);
+        o.verify(articleProxy).fetchArticle(event.getArticleId());
+        o.verify(repository, never()).save(isA(ReplyPinnedNoti.class));
+    }
+
+    @Test
+    public void ReplyPinned_게시글_작성자가_아닌_다른_사람의_답글을_고정한_경우() {
+        ReplyPinned event = spy(ReplyPinned.sample());
+        Article article = spy(Article.sample());
+        when(event.getReplierId()).thenReturn("m");
+        when(article.getWriterId()).thenReturn("k");
+        when(articleProxy.fetchArticle(eq(event.getArticleId()))).thenReturn(article);
+
+        processor.when(event);
+
+        InOrder o = inOrder(articleProxy, repository);
+        o.verify(articleProxy).fetchArticle(event.getArticleId());
+        o.verify(repository).save(isA(ReplyPinnedNoti.class));
     }
 }

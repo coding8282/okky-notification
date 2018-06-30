@@ -15,6 +15,7 @@ import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Set;
 
 import static lombok.AccessLevel.PRIVATE;
 
@@ -31,14 +32,10 @@ class ReplyEventProcessor {
     void when(ReplyWrote event) {
         String articleId = event.getArticleId();
         Article article = articleProxy.fetchArticle(articleId);
-
-        int page = 0;
-        List<String> replierIds = replyProxy.fetchReplierIds(articleId, page);
-        while (replierIds.size() > 0) {
-            List<Notification> notis = assembler.assemble(replierIds, event, article);
-            repository.saveAll(notis);
-            replierIds = replyProxy.fetchReplierIds(articleId, ++page);
-        }
+        Set<String> ownerIds = replyProxy.fetchReplierIds(articleId);
+        ownerIds.add(article.getWriterId());
+        List<Notification> notis = assembler.assemble(ownerIds, event, article);
+        repository.saveAll(notis);
     }
 
     @EventListener
