@@ -1,7 +1,6 @@
 package org.okky.notification.domain.event;
 
 import lombok.AllArgsConstructor;
-import lombok.SneakyThrows;
 import lombok.experimental.FieldDefaults;
 import org.okky.notification.domain.model.Article;
 import org.okky.notification.domain.model.Notification;
@@ -43,7 +42,6 @@ class ReplyEventProcessor {
     }
 
     @EventListener
-    @SneakyThrows
     void when(ReplyPinned event) {
         Article article = articleProxy.fetchArticle(event.getArticleId());
         ReplyPinnedNoti noti = new ReplyPinnedNoti(event, article);

@@ -24,20 +24,20 @@ class NotificationResource {
     NotificationApplicationService service;
     NotiRepository repository;
 
-    @GetMapping(value = "/members/{memberId}/reply-wrote-notifications", produces = APPLICATION_JSON_VALUE)
+    @GetMapping("/owners/{ownerId}/notifications/count")
+    Long count(@PathVariable String ownerId) {
+        return repository.countByOwnerIdAndReadIsFalse(ownerId);
+    }
+
+    @GetMapping(value = "/owners/{ownerId}/notifications", produces = APPLICATION_JSON_VALUE)
     PagingEnvelop findByOwnerId(
-            @PathVariable(name = "memberId") String ownerId,
+            @PathVariable String ownerId,
             @PageableDefault(size = 20, sort = "notifiedOn", direction = DESC) Pageable pageable) {
         Page<Notification> page = repository.findByOwnerId(ownerId, pageable);
         return new PagingEnvelop(page);
     }
 
-    @GetMapping("/owners/{ownerId}/reply-wrote-notifications/count")
-    Long countReplyWroteNotification(@PathVariable String ownerId) {
-        return repository.countByOwnerIdAndReadIsFalse(ownerId);
-    }
-
-    @PutMapping("/owners/{ownerId}/reply-wrote-notifications/read-all")
+    @PutMapping("/owners/{ownerId}/notifications/read-all")
     @ResponseStatus(NO_CONTENT)
     void markReadAll(@PathVariable String ownerId) {
         service.markReadAll(ownerId);
