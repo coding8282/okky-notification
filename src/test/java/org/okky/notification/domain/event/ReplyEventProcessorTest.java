@@ -11,9 +11,8 @@ import org.okky.notification.TestMother;
 import org.okky.notification.domain.model.Article;
 import org.okky.notification.domain.model.reply.ReplyPinnedNoti;
 import org.okky.notification.domain.repository.NotiRepository;
-import org.okky.notification.domain.service.ArticleProxy;
 import org.okky.notification.domain.service.NotiAssembler;
-import org.okky.notification.domain.service.ReplyProxy;
+import org.okky.notification.domain.service.NotiProxy;
 import org.okky.share.event.ReplyPinned;
 import org.okky.share.event.ReplyWrote;
 
@@ -34,9 +33,9 @@ public class ReplyEventProcessorTest extends TestMother {
     @Mock
     NotiAssembler assembler;
     @Mock
-    ArticleProxy articleProxy;
+    NotiProxy proxy;
     @Mock
-    ReplyProxy replyProxy;
+    NotiProxy notiProxy;
 
     @Test
     public void ReplyWrote() {
@@ -44,13 +43,13 @@ public class ReplyEventProcessorTest extends TestMother {
         Article article = mock(Article.class);
         when(event.getArticleId()).thenReturn("a-1");
         when(article.getWriterId()).thenReturn("w-1");
-        when(articleProxy.fetchArticle(eq("a-1"))).thenReturn(article);
+        when(proxy.fetchArticle(eq("a-1"))).thenReturn(article);
 
         processor.when(event);
 
-        InOrder o = inOrder(articleProxy, replyProxy, assembler, repository);
-        o.verify(articleProxy).fetchArticle("a-1");
-        o.verify(replyProxy).fetchReplierIds("a-1");
+        InOrder o = inOrder(proxy, notiProxy, assembler, repository);
+        o.verify(proxy).fetchArticle("a-1");
+        o.verify(notiProxy).fetchReplierIds("a-1");
         o.verify(assembler).assemble(any(), eq(event), eq(article));
         o.verify(repository).saveAll(isA(List.class));
     }
@@ -61,12 +60,12 @@ public class ReplyEventProcessorTest extends TestMother {
         Article article = spy(Article.sample());
         when(event.getReplierId()).thenReturn("m");
         when(article.getWriterId()).thenReturn("m");
-        when(articleProxy.fetchArticle(eq(event.getArticleId()))).thenReturn(article);
+        when(proxy.fetchArticle(eq(event.getArticleId()))).thenReturn(article);
 
         processor.when(event);
 
-        InOrder o = inOrder(articleProxy, repository);
-        o.verify(articleProxy).fetchArticle(event.getArticleId());
+        InOrder o = inOrder(proxy, repository);
+        o.verify(proxy).fetchArticle(event.getArticleId());
         o.verify(repository, never()).save(isA(ReplyPinnedNoti.class));
     }
 
@@ -76,12 +75,12 @@ public class ReplyEventProcessorTest extends TestMother {
         Article article = spy(Article.sample());
         when(event.getReplierId()).thenReturn("m");
         when(article.getWriterId()).thenReturn("k");
-        when(articleProxy.fetchArticle(eq(event.getArticleId()))).thenReturn(article);
+        when(proxy.fetchArticle(eq(event.getArticleId()))).thenReturn(article);
 
         processor.when(event);
 
-        InOrder o = inOrder(articleProxy, repository);
-        o.verify(articleProxy).fetchArticle(event.getArticleId());
+        InOrder o = inOrder(proxy, repository);
+        o.verify(proxy).fetchArticle(event.getArticleId());
         o.verify(repository).save(isA(ReplyPinnedNoti.class));
     }
 }
