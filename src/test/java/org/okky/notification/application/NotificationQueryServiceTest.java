@@ -53,11 +53,8 @@ public class NotificationQueryServiceTest extends TestMother {
 
     @Test
     public void findByOwnerId_내림차순으로_정렬되어_있어야_함() {
-        Page replyWroteNotiPage = mock(Page.class);
         Page replyPinnedNotiPage = mock(Page.class);
-        when(repository.findByOwnerId(eq("o"), any(Pageable.class))).thenReturn(replyWroteNotiPage);
         when(repository.findByOwnerId(eq("o"), any(Pageable.class))).thenReturn(replyPinnedNotiPage);
-        when(replyWroteNotiPage.getContent()).thenReturn(replyWroteNotis);
         when(replyPinnedNotiPage.getContent()).thenReturn(replyPinnedNotis);
 
         List<Notification> o = service.findByOwnerId("o", PageRequest.of(0, 10));
