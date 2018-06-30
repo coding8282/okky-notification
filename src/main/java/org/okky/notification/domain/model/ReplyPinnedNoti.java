@@ -1,6 +1,5 @@
 package org.okky.notification.domain.model;
 
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -12,7 +11,6 @@ import static org.okky.notification.domain.model.IdGenerator.nextReplyPinnedNoti
 import static org.okky.share.util.JsonUtil.toPrettyJson;
 
 @NoArgsConstructor(access = PRIVATE)
-@EqualsAndHashCode(of = "id", callSuper = false)
 @FieldDefaults(level = PRIVATE)
 @Getter
 @Document

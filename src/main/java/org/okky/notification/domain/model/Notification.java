@@ -1,6 +1,7 @@
 package org.okky.notification.domain.model;
 
 import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -10,11 +11,17 @@ import org.springframework.data.annotation.Id;
 import static java.lang.System.currentTimeMillis;
 import static lombok.AccessLevel.PROTECTED;
 
+/**
+ * 기본 정렬은 알림시각(notifiedOn)으로 내림차순.
+ *
+ * @author coding8282
+ */
 @NoArgsConstructor(access = PROTECTED)
 @AllArgsConstructor
+@EqualsAndHashCode(of = "id")
 @FieldDefaults(level = PROTECTED)
 @Getter
-public class Notification {
+public class Notification implements Comparable<Notification> {
     @Id
     String id;
     boolean read;
@@ -59,5 +66,10 @@ public class Notification {
             markUnread();
         else
             markRead();
+    }
+
+    @Override
+    public int compareTo(Notification o) {
+        return -(int) (notifiedOn - o.notifiedOn);
     }
 }
