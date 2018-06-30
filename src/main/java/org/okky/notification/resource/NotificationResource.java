@@ -20,7 +20,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @RestController
 @AllArgsConstructor
 @FieldDefaults(level = PRIVATE)
-class ReplyWroteNotiResource {
+class NotificationResource {
     NotificationApplicationService service;
     ReplyWroteNotiRepository repository;
 
