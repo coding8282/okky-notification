@@ -16,7 +16,7 @@ import static org.okky.share.util.JsonUtil.toPrettyJson;
 @Getter
 public class EmotedNoti extends Notification {
     String targetId;
-    String targetOwnerId;
+    String targetOwnerId;//ex) 게시글 작성자
     String targetOwnerName;
     String emoterId;//공감한 사람
     String emotionType;
@@ -44,7 +44,8 @@ public class EmotedNoti extends Notification {
     }
 
     /**
-     * 게시글 작성자가 다른 사람의 게시글을 공감했는지 여부
+     * 다른 사람이 해당 게시글을 공감했는지 여부.
+     * 자기 자신의 게시글을 공감했다면 굳이 알림을 줄 필요가 없다.
      */
     public boolean didEmotedByOthers() {
         return !targetOwnerId.equals(emoterId);
