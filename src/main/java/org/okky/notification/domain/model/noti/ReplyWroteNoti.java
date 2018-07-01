@@ -1,17 +1,16 @@
-package org.okky.notification.domain.model.reply;
+package org.okky.notification.domain.model.noti;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.okky.notification.domain.model.Article;
 import org.okky.notification.domain.model.IdGenerator;
-import org.okky.notification.domain.model.Notification;
 import org.okky.share.event.ReplyWrote;
 import org.okky.share.execption.BadArgument;
 
 import static java.lang.String.format;
 import static lombok.AccessLevel.PRIVATE;
-import static org.okky.notification.domain.model.reply.ReplyWroteNotiContext.*;
+import static org.okky.notification.domain.model.noti.ReplyWroteNotiContext.*;
 import static org.okky.share.JsonUtil.toPrettyJson;
 
 @NoArgsConstructor(access = PRIVATE)

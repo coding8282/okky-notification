@@ -1,10 +1,9 @@
-package org.okky.notification.domain.model.reply;
+package org.okky.notification.domain.model.noti;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.okky.notification.domain.model.Article;
-import org.okky.notification.domain.model.Notification;
 import org.okky.share.event.ReplyPinned;
 
 import static lombok.AccessLevel.PRIVATE;

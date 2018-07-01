@@ -1,4 +1,4 @@
-package org.okky.notification.domain.model.emotion;
+package org.okky.notification.domain.model.noti;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -6,7 +6,6 @@ import lombok.experimental.FieldDefaults;
 import org.okky.notification.domain.model.Article;
 import org.okky.notification.domain.model.Emoter;
 import org.okky.notification.domain.model.IdGenerator;
-import org.okky.notification.domain.model.Notification;
 import org.okky.share.event.Emoted;
 
 import static lombok.AccessLevel.PRIVATE;

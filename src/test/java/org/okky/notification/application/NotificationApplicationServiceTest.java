@@ -9,7 +9,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.okky.notification.TestMother;
-import org.okky.notification.domain.model.Notification;
+import org.okky.notification.domain.model.noti.Notification;
 import org.okky.notification.domain.repository.NotiRepository;
 
 import java.util.List;

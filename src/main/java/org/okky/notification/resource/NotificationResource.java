@@ -3,7 +3,7 @@ package org.okky.notification.resource;
 import lombok.AllArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.okky.notification.application.NotificationApplicationService;
-import org.okky.notification.domain.model.Notification;
+import org.okky.notification.domain.model.noti.Notification;
 import org.okky.notification.domain.repository.NotiRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

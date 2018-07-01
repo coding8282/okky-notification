@@ -8,7 +8,7 @@ import org.mockito.InjectMocks;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.okky.notification.domain.model.Article;
 import org.okky.notification.domain.model.Emoter;
-import org.okky.notification.domain.model.emotion.EmotedNoti;
+import org.okky.notification.domain.model.noti.EmotedNoti;
 import org.okky.share.event.Emoted;
 
 import static lombok.AccessLevel.PRIVATE;

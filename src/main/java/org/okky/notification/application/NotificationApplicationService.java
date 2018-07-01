@@ -2,7 +2,7 @@ package org.okky.notification.application;
 
 import lombok.AllArgsConstructor;
 import lombok.experimental.FieldDefaults;
-import org.okky.notification.domain.model.Notification;
+import org.okky.notification.domain.model.noti.Notification;
 import org.okky.notification.domain.repository.NotiRepository;
 import org.springframework.stereotype.Service;
 

@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.okky.notification.domain.model.Article;
 import org.okky.notification.domain.model.Emoter;
-import org.okky.notification.domain.model.emotion.EmotedNoti;
+import org.okky.notification.domain.model.noti.EmotedNoti;
 import org.okky.notification.domain.repository.NotiRepository;
 import org.okky.notification.domain.service.NotiProxy;
 import org.okky.share.event.Emoted;

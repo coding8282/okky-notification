@@ -1,8 +1,8 @@
 package org.okky.notification.domain.service;
 
 import org.okky.notification.domain.model.Article;
-import org.okky.notification.domain.model.Notification;
-import org.okky.notification.domain.model.reply.ReplyWroteNoti;
+import org.okky.notification.domain.model.noti.Notification;
+import org.okky.notification.domain.model.noti.ReplyWroteNoti;
 import org.okky.share.event.ReplyWrote;
 import org.springframework.stereotype.Service;
 

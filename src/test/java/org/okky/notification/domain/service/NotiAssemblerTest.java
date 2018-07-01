@@ -3,7 +3,7 @@ package org.okky.notification.domain.service;
 import org.junit.Test;
 import org.okky.notification.TestMother;
 import org.okky.notification.domain.model.Article;
-import org.okky.notification.domain.model.Notification;
+import org.okky.notification.domain.model.noti.Notification;
 import org.okky.share.event.ReplyWrote;
 
 import java.util.Arrays;

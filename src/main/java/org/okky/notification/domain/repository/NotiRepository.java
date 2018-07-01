@@ -1,6 +1,6 @@
 package org.okky.notification.domain.repository;
 
-import org.okky.notification.domain.model.Notification;
+import org.okky.notification.domain.model.noti.Notification;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.Repository;

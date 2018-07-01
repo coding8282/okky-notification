@@ -2,7 +2,7 @@ package org.okky.notification.domain.model;
 
 import org.junit.Test;
 import org.okky.notification.TestMother;
-import org.okky.notification.domain.model.reply.ReplyWroteNoti;
+import org.okky.notification.domain.model.noti.ReplyWroteNoti;
 import org.okky.share.event.ReplyWrote;
 
 import static java.lang.System.currentTimeMillis;
@@ -11,7 +11,7 @@ import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.lessThanOrEqualTo;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static org.okky.notification.domain.model.reply.ReplyWroteNotiContext.*;
+import static org.okky.notification.domain.model.noti.ReplyWroteNotiContext.*;
 
 public class ReplyWroteNotiTest extends TestMother {
     @Test

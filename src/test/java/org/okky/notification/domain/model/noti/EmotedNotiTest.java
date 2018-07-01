@@ -1,4 +1,4 @@
-package org.okky.notification.domain.model.emotion;
+package org.okky.notification.domain.model.noti;
 
 import org.junit.Test;
 import org.okky.notification.TestMother;

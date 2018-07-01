@@ -4,7 +4,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.okky.notification.domain.model.IdGenerator;
-import org.okky.notification.domain.model.Notification;
 import org.okky.notification.domain.model.Reply;
 import org.okky.share.event.ReplyCommented;
 

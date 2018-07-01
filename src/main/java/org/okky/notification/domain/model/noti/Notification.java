@@ -1,4 +1,4 @@
-package org.okky.notification.domain.model;
+package org.okky.notification.domain.model.noti;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -34,7 +34,7 @@ public class Notification implements Comparable<Notification> {
     long notifiedOn;
     String event;
 
-    protected Notification(String id, String ownerId) {
+    public Notification(String id, String ownerId) {
         this.id = id;
         this.ownerId = ownerId;
         this.read = false;

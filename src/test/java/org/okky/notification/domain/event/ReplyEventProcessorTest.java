@@ -7,7 +7,7 @@ import org.mockito.InOrder;
 import org.mockito.InjectMocks;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.okky.notification.domain.model.Article;
-import org.okky.notification.domain.model.reply.ReplyPinnedNoti;
+import org.okky.notification.domain.model.noti.ReplyPinnedNoti;
 import org.okky.share.event.ReplyPinned;
 import org.okky.share.event.ReplyWrote;
 

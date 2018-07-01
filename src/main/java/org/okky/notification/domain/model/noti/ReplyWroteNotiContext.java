@@ -1,4 +1,4 @@
-package org.okky.notification.domain.model.reply;
+package org.okky.notification.domain.model.noti;
 
 public enum ReplyWroteNotiContext {
     YOURS, // ex) 당신의 게시글에 coding8282님이 답글을 남겼습니다.
