@@ -60,21 +60,21 @@ public class ReplyWroteNotiTest extends TestMother {
     }
 
     @Test
-    public void didNotRepliedMyself_context가_SELF인_경우_true() {
+    public void wasRepliedByMyself_context가_SELF인_경우_true() {
         ReplyWrote event = eventFixture();
         Article article = articleFixture();
         ReplyWroteNoti noti = new ReplyWroteNoti("m-1", event, article);
 
-        assertTrue("context는 SELF이므로 true여야 한다.", noti.didRepliedMyself());
+        assertTrue("context는 SELF이므로 true여야 한다.", noti.wasRepliedByMyself());
     }
 
     @Test
-    public void didNotRepliedMyself_context가_SELF가_아닌_경우_false() {
+    public void wasRepliedByMyself_context가_SELF가_아닌_경우_false() {
         ReplyWrote event = eventFixture();
         Article article = articleFixture();
         ReplyWroteNoti noti = new ReplyWroteNoti("m-9", event, article);
 
-        assertFalse("context는 SELF이므로 false여야 한다.", noti.didRepliedMyself());
+        assertFalse("context는 SELF이므로 false여야 한다.", noti.wasRepliedByMyself());
     }
 
     // ------------------------------------

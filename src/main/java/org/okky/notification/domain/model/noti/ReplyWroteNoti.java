@@ -52,7 +52,7 @@ public class ReplyWroteNoti extends Notification {
      * 알림을 제공하기에 적절한지 확인 판단에 쓰인다.
      * 예를 들어, 자기가 쓴 게시글에 자기가 답변을 단 경우 굳이 알림을 줄 필요 없다.
      */
-    public boolean didRepliedMyself() {
+    public boolean wasRepliedByMyself() {
         return context == SELF;
     }
 

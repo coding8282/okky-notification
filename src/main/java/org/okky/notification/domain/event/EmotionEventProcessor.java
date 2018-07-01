@@ -25,7 +25,7 @@ class EmotionEventProcessor {
         Article article = proxy.fetchArticle(event.getTargetId());
         Emoter emoter = proxy.fetchEmoter(event.getEmoterId());
         EmotedNoti noti = new EmotedNoti(event, article, emoter);
-        if (noti.didEmotedByOthers())
+        if (noti.wasEmotedByOthers())
             repository.save(noti);
     }
 }

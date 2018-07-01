@@ -17,7 +17,7 @@ public class NotiAssembler {
         return ownerIds
                 .stream()
                 .map(ownerId -> new ReplyWroteNoti(ownerId, event, article))
-                .filter(noti -> !noti.didRepliedMyself())
+                .filter(noti -> !noti.wasRepliedByMyself())
                 .collect(toList());
     }
 }

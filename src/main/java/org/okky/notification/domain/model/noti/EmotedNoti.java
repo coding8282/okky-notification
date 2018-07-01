@@ -56,7 +56,7 @@ public class EmotedNoti extends Notification {
      * 다른 사람이 해당 게시글을 공감했는지 여부.
      * 자기 자신의 게시글을 공감했다면 굳이 알림을 줄 필요가 없다.
      */
-    public boolean didEmotedByOthers() {
+    public boolean wasEmotedByOthers() {
         return !targetOwnerId.equals(emoterId);
     }
 }
