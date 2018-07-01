@@ -24,7 +24,7 @@ public class NotiProxy {
         return template.getForEntity(url, Member.class).getBody();
     }
 
-    public Emoter fetchEmother(String emoterId) {
+    public Emoter fetchEmoter(String emoterId) {
         String url = "/members/" + emoterId;
         return template.getForEntity(url, Emoter.class).getBody();
     }

@@ -3,6 +3,7 @@ package org.okky.notification.domain.event;
 import lombok.AllArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.okky.notification.domain.model.Article;
+import org.okky.notification.domain.model.Emoter;
 import org.okky.notification.domain.model.emotion.EmotedNoti;
 import org.okky.notification.domain.repository.NotiRepository;
 import org.okky.notification.domain.service.NotiProxy;
@@ -22,7 +23,8 @@ class EmotionEventProcessor {
     @EventListener
     void when(Emoted event) {
         Article article = proxy.fetchArticle(event.getTargetId());
-        EmotedNoti noti = new EmotedNoti(event, article);
+        Emoter emoter = proxy.fetchEmoter(event.getEmoterId());
+        EmotedNoti noti = new EmotedNoti(event, article, emoter);
         if (noti.didEmotedByOthers())
             repository.save(noti);
     }

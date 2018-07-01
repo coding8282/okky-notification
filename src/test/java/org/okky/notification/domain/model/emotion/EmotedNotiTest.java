@@ -3,6 +3,7 @@ package org.okky.notification.domain.model.emotion;
 import org.junit.Test;
 import org.okky.notification.TestMother;
 import org.okky.notification.domain.model.Article;
+import org.okky.notification.domain.model.Emoter;
 import org.okky.share.event.Emoted;
 
 import static org.junit.Assert.assertFalse;
@@ -26,6 +27,7 @@ public class EmotedNotiTest extends TestMother {
     public EmotedNoti fixture(String emoterId, String writerId) {
         Emoted event = new Emoted("r-1", "a-1", emoterId, 1L, "LIKE");
         Article article = new Article("a-1", writerId, "coding8282");
-        return new EmotedNoti(event, article);
+        Emoter emoter = new Emoter("m-1", "coding8282");
+        return new EmotedNoti(event, article, emoter);
     }
 }
