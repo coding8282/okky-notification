@@ -30,6 +30,16 @@ public class IdGeneratorTest extends TestMother {
     }
 
     @Test
+    public void nextReplyCommentedNotiId_nc로_시작해야_함() {
+        assertThat("ReplyCommentedNoti 아이디는 nc-로 시작해야 한다.", nextReplyCommentedNotiId(), startsWith("nc-"));
+    }
+
+    @Test
+    public void nextReplyCommentedNotiId_18자여야_함() {
+        assertThat("ReplyCommentedNoti 아이디는 18자여야 한다.", nextReplyPinnedNotiId().length(), is(18));
+    }
+
+    @Test
     public void nextEmotedNotiId_ne로_시작해야_함() {
         assertThat("EmotedNoti 아이디는 ne-로 시작해야 한다.", nextEmotedNotiId(), startsWith("ne-"));
     }

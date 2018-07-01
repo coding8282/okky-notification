@@ -11,6 +11,10 @@ public interface IdGenerator {
         return "np-" + uuid();
     }
 
+    static String nextReplyCommentedNotiId() {
+        return "nc-" + uuid();
+    }
+
     static String nextEmotedNotiId() {
         return "ne-" + uuid();
     }
