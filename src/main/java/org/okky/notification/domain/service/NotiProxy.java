@@ -5,6 +5,7 @@ import lombok.experimental.FieldDefaults;
 import org.okky.notification.domain.model.Article;
 import org.okky.notification.domain.model.Emoter;
 import org.okky.notification.domain.model.Member;
+import org.okky.notification.domain.model.Reply;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -32,6 +33,11 @@ public class NotiProxy {
     public Article fetchArticle(String articleId) {
         String url = "/articles/" + articleId;
         return template.getForEntity(url, Article.class).getBody();
+    }
+
+    public Reply fetchReply(String replyId) {
+        String url = "/replies/" + replyId;
+        return template.getForEntity(url, Reply.class).getBody();
     }
 
     public Set<String> fetchReplierIds(String articleId) {
