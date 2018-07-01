@@ -5,12 +5,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InOrder;
 import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
-import org.okky.notification.TestMother;
 import org.okky.notification.domain.model.Reply;
-import org.okky.notification.domain.repository.NotiRepository;
-import org.okky.notification.domain.service.NotiProxy;
 import org.okky.share.event.ReplyCommented;
 
 import static lombok.AccessLevel.PRIVATE;
@@ -20,13 +16,9 @@ import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
 @FieldDefaults(level = PRIVATE)
-public class CommentEventProcessorTest extends TestMother {
+public class CommentEventProcessorTest extends EventProcessorTestMother {
     @InjectMocks
     CommentEventProcessor processor;
-    @Mock
-    NotiRepository repository;
-    @Mock
-    NotiProxy proxy;
 
     @Test
     public void ReplyCommented_답글_작성자가_본인이_코멘트한_경우_알림하지_않음() {

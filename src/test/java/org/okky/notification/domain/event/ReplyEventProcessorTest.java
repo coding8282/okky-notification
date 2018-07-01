@@ -5,14 +5,9 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InOrder;
 import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
-import org.okky.notification.TestMother;
 import org.okky.notification.domain.model.Article;
 import org.okky.notification.domain.model.reply.ReplyPinnedNoti;
-import org.okky.notification.domain.repository.NotiRepository;
-import org.okky.notification.domain.service.NotiAssembler;
-import org.okky.notification.domain.service.NotiProxy;
 import org.okky.share.event.ReplyPinned;
 import org.okky.share.event.ReplyWrote;
 
@@ -25,15 +20,9 @@ import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
 @FieldDefaults(level = PRIVATE)
-public class ReplyEventProcessorTest extends TestMother {
+public class ReplyEventProcessorTest extends EventProcessorTestMother {
     @InjectMocks
     ReplyEventProcessor processor;
-    @Mock
-    NotiRepository repository;
-    @Mock
-    NotiAssembler assembler;
-    @Mock
-    NotiProxy proxy;
 
     @Test
     public void ReplyWrote() {

@@ -16,6 +16,7 @@ import static org.okky.share.util.JsonUtil.toPrettyJson;
 @Getter
 public class ReplyCommentedNoti extends Notification {
     String replyId;
+    String articleId;
     String commentBody;
     String commenterId;
     String commenterName;
@@ -27,6 +28,7 @@ public class ReplyCommentedNoti extends Notification {
     public ReplyCommentedNoti(ReplyCommented event, Reply reply) {
         super(IdGenerator.nextReplyCommentedNotiId(), reply.getReplierId());
         this.replyId = reply.getId();
+        this.articleId = reply.getArticleId();
         this.commentBody = event.getBody();
         this.commenterId = event.getCommenterId();
         this.commenterName = event.getCommenterName();
