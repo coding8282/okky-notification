@@ -7,10 +7,10 @@ import org.mockito.InOrder;
 import org.mockito.InjectMocks;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.okky.notification.domain.model.Reply;
+import org.okky.notification.domain.model.noti.ReplyCommentedNoti;
 import org.okky.share.event.ReplyCommented;
 
 import static lombok.AccessLevel.PRIVATE;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 
@@ -32,7 +32,7 @@ public class CommentEventProcessorTest extends EventProcessorTestMother {
 
         InOrder o = inOrder(proxy, repository);
         o.verify(proxy).fetchReply(anyString());
-        o.verify(repository, never()).save(any());
+        o.verifyNoMoreInteractions();
     }
 
     @Test
@@ -47,6 +47,7 @@ public class CommentEventProcessorTest extends EventProcessorTestMother {
 
         InOrder o = inOrder(proxy, repository);
         o.verify(proxy).fetchReply(anyString());
-        o.verify(repository).save(any());
+        o.verify(repository).save(isA(ReplyCommentedNoti.class));
+        o.verifyNoMoreInteractions();
     }
 }
