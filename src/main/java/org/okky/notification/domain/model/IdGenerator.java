@@ -19,6 +19,10 @@ public interface IdGenerator {
         return "ne-" + uuid();
     }
 
+    static String nextArticleScrappedNotiId() {
+        return "ns-" + uuid();
+    }
+
     static String uuid() {
         return UUID.randomUUID().toString().replaceAll("-", "").substring(0, 15);
     }
