@@ -1,13 +1,8 @@
 package org.okky.notification.domain.event;
 
-import lombok.AllArgsConstructor;
-import lombok.experimental.FieldDefaults;
 import org.okky.notification.domain.model.Article;
 import org.okky.notification.domain.model.noti.Notification;
 import org.okky.notification.domain.model.noti.ReplyPinnedNoti;
-import org.okky.notification.domain.repository.NotiRepository;
-import org.okky.notification.domain.service.NotiAssembler;
-import org.okky.notification.domain.service.NotiProxy;
 import org.okky.share.event.ReplyPinned;
 import org.okky.share.event.ReplyWrote;
 import org.springframework.context.event.EventListener;
@@ -16,16 +11,8 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 import java.util.Set;
 
-import static lombok.AccessLevel.PRIVATE;
-
 @Component
-@AllArgsConstructor
-@FieldDefaults(level = PRIVATE)
-class ReplyEventProcessor {
-    NotiRepository repository;
-    NotiAssembler assembler;
-    NotiProxy proxy;
-
+class ReplyEventProcessor extends EventProcessor {
     @EventListener
     void when(ReplyWrote event) {
         String articleId = event.getArticleId();
