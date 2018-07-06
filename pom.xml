@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
@@ -7,7 +8,6 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>2.0.2.RELEASE</version>
-        <relativePath/>
     </parent>
 
     <groupId>org.okky.notification</groupId>
@@ -15,27 +15,12 @@
     <version>1.0.0</version>
 
     <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
-        <okky-share.version>1.0.1</okky-share.version>
-        <okky-share-event.version>1.0.0-SNAPSHOT</okky-share-event.version>
-        <spring-cloud.version>Finchley.BUILD-SNAPSHOT</spring-cloud.version>
-        <aws-java-sdk-sqs.version>1.11.340</aws-java-sdk-sqs.version>
-        <spring-cloud-starter-aws-messaging.version>1.2.2.RELEASE</spring-cloud-starter-aws-messaging.version>
         <spring-data-mongodb.version>2.0.7.RELEASE</spring-data-mongodb.version>
         <spring-data-commons.version>2.0.7.RELEASE</spring-data-commons.version>
         <de.flapdoodle.embed.mongo.version>2.0.3</de.flapdoodle.embed.mongo.version>
-        <spring-cloud-starter-config.version>1.4.3.RELEASE</spring-cloud-starter-config.version>
     </properties>
 
     <dependencies>
-        <dependency>
-            <groupId>org.okky.share</groupId>
-            <artifactId>okky-share</artifactId>
-            <version>${okky-share.version}</version>
-        </dependency>
         <dependency>
             <groupId>org.okky.share</groupId>
             <artifactId>okky-share-event</artifactId>
@@ -50,9 +35,16 @@
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-devtools</artifactId>
-            <optional>true</optional>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-aws-messaging</artifactId>
+            <version>${spring-cloud-starter-aws-messaging.version}</version>
+        </dependency>
+
+        <!-- config -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-config</artifactId>
+            <version>${spring-cloud-starter-config.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -61,18 +53,16 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
+            <optional>true</optional>
         </dependency>
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-config</artifactId>
-            <version>${spring-cloud-starter-config.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-aws-messaging</artifactId>
-            <version>${spring-cloud-starter-aws-messaging.version}</version>
-        </dependency>
+
+        <!-- persistence -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-mongodb</artifactId>
@@ -88,6 +78,19 @@
             <version>${spring-data-commons.version}</version>
         </dependency>
 
+        <!-- test -->
+        <dependency>
+            <groupId>org.powermock</groupId>
+            <artifactId>powermock-module-junit4</artifactId>
+            <version>${powermock-module-junit4.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.powermock</groupId>
+            <artifactId>powermock-api-mockito2</artifactId>
+            <version>${powermock-api-mockito2.version}</version>
+            <scope>test</scope>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
@@ -130,18 +133,19 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>build-info</goal>
-                        </goals>
-                    </execution>
-                </executions>
                 <configuration>
                     <executable>true</executable>
                 </configuration>
             </plugin>
         </plugins>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>sonar-maven-plugin</artifactId>
+                </plugin>
+            </plugins>
+        </pluginManagement>
         <extensions>
             <extension>
                 <groupId>org.springframework.build</groupId>
@@ -150,55 +154,4 @@
             </extension>
         </extensions>
     </build>
-
-    <repositories>
-        <repository>
-            <id>spring-snapshots</id>
-            <name>Spring Snapshots</name>
-            <url>https://repo.spring.io/snapshot</url>
-        </repository>
-        <repository>
-            <id>spring-milestones</id>
-            <name>Spring Milestones</name>
-            <url>https://repo.spring.io/milestone</url>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>
-    </repositories>
-
-    <profiles>
-        <profile>
-            <id>prod</id>
-            <repositories>
-                <repository>
-                    <id>okky-release</id>
-                    <url>s3://okky-mvn-repo/prod/release</url>
-                </repository>
-                <repository>
-                    <id>okky-snapshot</id>
-                    <url>s3://okky-mvn-repo/prod/snapshot</url>
-                    <snapshots>
-                        <updatePolicy>daily</updatePolicy>
-                    </snapshots>
-                </repository>
-            </repositories>
-        </profile>
-        <profile>
-            <id>stg</id>
-            <repositories>
-                <repository>
-                    <id>okky-release</id>
-                    <url>s3://okky-mvn-repo-stg/release</url>
-                </repository>
-                <repository>
-                    <id>okky-snapshot</id>
-                    <url>s3://okky-mvn-repo-stg/snapshot</url>
-                    <snapshots>
-                        <updatePolicy>interval:30</updatePolicy>
-                    </snapshots>
-                </repository>
-            </repositories>
-        </profile>
-    </profiles>
 </project>
