@@ -7,7 +7,7 @@ import org.springframework.data.repository.Repository;
 
 import java.util.List;
 
-public interface NotiRepository<T extends Notification> extends Repository<T, String> {
+public interface NotiRepository extends Repository<Notification, String> {
     long countByOwnerIdAndReadIsFalse(String ownerId);
     void save(Notification noti);
     void saveAll(Iterable<Notification> notis);
